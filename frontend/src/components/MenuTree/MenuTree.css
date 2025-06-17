@@ -1,0 +1,13 @@
+.menu-tree ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.menu-tree li {
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.nodo ul {
+  margin-left: 20px;
+}
