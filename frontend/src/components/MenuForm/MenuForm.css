@@ -1,13 +1,33 @@
 .menu-form {
-  margin-bottom: 20px;
+  margin: 3rem auto 4rem auto;
+  width: 70%;
+  display: flex;
+  gap: 2rem;
 }
 
 .menu-form input {
   padding: 8px;
-  margin-right: 10px;
+  width: 100%;
+  font-family: "Lora";
+  font-size: 1.1rem;
+  background-color: #ddd;
+  border: none;
+
 }
 
 .menu-form button {
-  padding: 8px 12px;
+  padding: 0.5rem 1.5rem;
   cursor: pointer;
+  font-family: "Lora";
+  font-size: 1.1rem;
+  border: 2.5px solid #ddd;
+  background-color: #3b4647;
+  color: #ddd;
+  font-weight: bold;
+  transition: ease 0.3s;
+  &:hover {
+    border: 2px solid #3b4647;
+    background-color: #ddd;
+    color: #3b4647;
+  }
 }

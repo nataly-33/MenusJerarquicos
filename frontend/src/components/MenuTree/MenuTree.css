@@ -1,13 +1,30 @@
-.menu-tree ul {
-  list-style-type: none;
-  padding-left: 20px;
+.nivel-container {
+    margin-bottom: 20px;
 }
 
-.menu-tree li {
-  margin: 5px 0;
-  font-weight: bold;
+.nodo-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    position: relative;
+    margin-bottom: 2.5rem;
 }
 
-.nodo ul {
-  margin-left: 20px;
+h3 {
+    color: #ddd;
+    font-size: 1.35rem;
+}
+.nodo {
+    position: relative;
+    padding: 10px 20px;
+    background-color: #95a2a3; /*607577*/
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.nodo:hover {
+    transform: scale(1.04);
 }

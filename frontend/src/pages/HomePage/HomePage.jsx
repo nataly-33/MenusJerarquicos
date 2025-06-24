@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import MenuForm from '../../components/MenuForm/MenuForm';
 import MenuTree from '../../components/MenuTree/MenuTree';
-import './HomePage.css';
 
 function HomePage() {
-  const [arbol, setArbol] = useState(null);
+  const [actualizar, setActualizar] = useState(false);
 
-  const fetchMenu = async () => {
-    const res = await axios.get('http://localhost:5000/menu');
-    setArbol(res.data);
+  const handleInsert = () => {
+    setActualizar(!actualizar);
   };
 
-  useEffect(() => {
-    fetchMenu();
-  }, []);
-
   return (
-    <div className="home-page">
-      <h2>Sistema de Menús Jerárquicos</h2>
-      <MenuForm onMenuAdded={fetchMenu} />
-      <MenuTree arbol={arbol} />
+    <div>
+      <MenuForm onInsert={handleInsert} />
+      <MenuTree key={actualizar} />
     </div>
   );
 }

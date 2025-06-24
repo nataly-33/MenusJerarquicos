@@ -1,13 +1,18 @@
 .header {
-  background-color: #4caf50;
-  padding: 20px;
-  color: white;
+  background-color: #1f2f31; /*405153*/
+  padding: 1rem;
+  color: #ddd;
 }
 
 .header nav a {
-  color: white;
+  color: #ddd;
   margin-right: 15px;
   text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.header nav {
+  margin-bottom: 1rem;
 }
 
 .header nav a:hover {

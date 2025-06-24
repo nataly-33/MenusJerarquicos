@@ -1,18 +1,4 @@
 services:
-  mongodb:
-    image: mongo:6.0
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: rootpassword
-      MONGO_INITDB_DATABASE: proyectobst
-    volumes:
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
-      - mongodb_data:/data/db 
-    restart: always
-
   backend:
     build: ./backend
     container_name: backend
@@ -20,10 +6,10 @@ services:
       - "5000:5000"
     volumes:
       - ./backend:/app
+    working_dir: /app
+    command: flask run --host=0.0.0.0 --reload  
     environment:
-      MONGO_URI: "mongodb://nataly-33:passWord63@mongodb:27017/proyectoavl"
-    depends_on:
-      - mongodb
+      - FLASK_ENV=development
     restart: always
 
   frontend:
@@ -31,13 +17,12 @@ services:
     container_name: frontend
     ports:
       - "5175:5173"
+    working_dir: /app
     volumes:
       - ./frontend:/app
       - /app/node_modules
     depends_on:
       - backend
     environment:
+      - CHOKIDAR_USEPOLLING=true
       - HOST=0.0.0.0
-
-volumes:
-  mongodb_data: 

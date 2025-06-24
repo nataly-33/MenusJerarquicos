@@ -2,26 +2,32 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './MenuForm.css';
 
-function MenuForm({ onMenuAdded }) {
-  const [nombre, setNombre] = useState('');
+function MenuForm({ onInsert }) {
+  const [dato, setDato] = useState('');
 
-  const agregarMenu = async () => {
-    if (!nombre.trim()) return;
-    await axios.post('http://localhost:5000/menu', { nombre });
-    setNombre('');
-    onMenuAdded(); // Refresca el árbol después de agregar
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!dato) return;
+
+    try {
+      await axios.post('http://localhost:5000/insertar', { dato }); 
+      onInsert(); 
+      setDato(''); 
+    } catch (error) {
+      console.error('Error al insertar', error);
+    }
   };
 
   return (
-    <div className="menu-form">
+    <form onSubmit={handleSubmit} className="menu-form">
       <input
         type="text"
-        placeholder="Nombre del menú"
-        value={nombre}
-        onChange={e => setNombre(e.target.value)}
+        placeholder="Ingrese dato del menú"
+        value={dato}
+        onChange={(e) => setDato(e.target.value)}
       />
-      <button onClick={agregarMenu}>Agregar Menú</button>
-    </div>
+      <button type="submit">Insertar</button>
+    </form>
   );
 }
 

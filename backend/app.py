@@ -1,39 +1,42 @@
-from flask import Flask, jsonify, request
-from flask_pymongo import PyMongo
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from bson.json_util import dumps
-from models.arbolAVL import ArbolMVias
+
+from models.arbolMVias import ArbolMVias
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb://mongo:27017/menusdb"
-mongo = PyMongo(app)
+CORS(app)
 
-# Crear un árbol M-vias global
-M = 4  # Se define los enlaces
-arbol = ArbolMVias(M)
+arbol = ArbolMVias(4)
 
-@app.route('/menu', methods=['POST'])
-def insertar_menu():
+
+@app.route('/insertar', methods=['POST'])
+def insertar():
+    """
+    Inserta un nuevo dato en el árbol M-vías.
+
+    El usuario debe enviar un JSON con el campo 'dato'.
+    Si no se proporciona el campo 'dato', se devuelve un error 400.
+    """
     data = request.get_json()
-    nombre = data.get('nombre')
-    if not nombre:
-        return jsonify({"error": "Falta nombre"}), 400
 
-    arbol.insertar(nombre)
+    if not data:
+        return jsonify({'error': 'El campo "dato" es obligatorio.'}), 400
 
-    # Guardar en MongoDB como respaldo
-    mongo.db.menus.insert_one({"nombre": nombre})
+    arbol.insertar(data['dato'])
 
-    return jsonify({"mensaje": "Menú insertado correctamente."})
+    return jsonify({'mensaje': f'Dato "{data["dato"]}" insertado correctamente.'}), 201
 
-@app.route('/menu', methods=['GET'])
-def obtener_menu():
-    estructura = arbol.to_dict()
-    return jsonify(estructura)
 
-@app.route('/menu_db', methods=['GET'])
-def obtener_menus_mongo():
-    menus = mongo.db.menus.find()
-    return dumps(menus)
+@app.route('/listar', methods=['GET'])
+def listar():
+    """
+    Devuelve la estructura del árbol M-vías en formato JSON.
+
+    La respuesta contiene los niveles del árbol en forma de lista.
+    """
+    return jsonify(arbol.obtener_niveles())
+
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
