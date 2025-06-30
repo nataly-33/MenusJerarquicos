@@ -129,22 +129,3 @@ class ArbolMVias:
 
         return niveles
     
-"""
-if __name__ == "__main__":
-    arbol = ArbolMVias(4)
-
-    arbol.insertar("1 General")
-    arbol.insertar("2 Seguridad")
-    arbol.insertar("3 Usuario")
-    arbol.insertar("1.1 Logs")
-    arbol.insertar("2.1 Contraseña")
-    arbol.insertar("1.2 Configuración")
-    arbol.insertar("3.1 Inicio")
-    arbol.insertar("0 Utilidades")
-
-
-    arbol.mostrar_niveles()
-    json_menu = arbol.obtener_json()
-    print("\nMenú en formato JSON:")
-    print(json_menu)
-"""

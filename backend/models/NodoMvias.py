@@ -73,6 +73,12 @@ class NodoMVias:
             int: Cantidad de claves.
         """
         return len(self.data)
+    
+    def esta_vacio(self):
+        """
+        Retorna True si el nodo está vacío (sin datos y sin hijos).
+        """
+        return len(self.data) == 0 and all(h is None for h in self.hijos)
 
     def __str__(self):
         """

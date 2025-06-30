@@ -27,7 +27,6 @@ def insertar():
 
     return jsonify({'mensaje': f'Dato "{data["dato"]}" insertado correctamente.'}), 201
 
-
 @app.route('/listar', methods=['GET'])
 def listar():
     """
@@ -36,7 +35,6 @@ def listar():
     La respuesta contiene los niveles del árbol en forma de lista.
     """
     return jsonify(arbol.obtener_niveles())
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

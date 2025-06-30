@@ -17,9 +17,9 @@ h3 {
 }
 .nodo {
     position: relative;
-    padding: 10px 20px;
-    background-color: #95a2a3; /*607577*/
-    border-radius: 8px;
+    padding: 0 8px;
+    border: 2.5px solid #0a0d0e;
+    background-color: #9aa4a5; /*607577*/
     text-align: center;
     transition: transform 0.3s ease, opacity 0.3s ease;
     font-size: 1.1rem;
@@ -28,3 +28,18 @@ h3 {
 .nodo:hover {
     transform: scale(1.04);
 }
+
+.clave {
+    padding: 6px 15px;
+    margin: 0 8px;
+    border-left: 2.5px solid #0a0d0e;
+    border-right: 2.5px solid #0a0d0e;
+    cursor: pointer;
+    display: inline-block;
+    transition: background-color 0.2s;
+}
+
+.clave:hover {
+    background-color: #ddd;
+}
+

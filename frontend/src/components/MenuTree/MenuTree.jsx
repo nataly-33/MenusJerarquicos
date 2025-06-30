@@ -8,47 +8,50 @@ const MenuTree = () => {
     const [cargando, setCargando] = useState(false);
 
     useEffect(() => {
-        fetchNiveles();
+        cargarNodos();
     }, []);
 
-    const fetchNiveles = async () => {
+    const cargarNodos = async () => {
         try {
             setCargando(true);
             const response = await axios.get('http://localhost:5000/listar');
             setNiveles(response.data);
-            console.log("Arbol", response.data);
-
+            console.log("Árbol:", response.data);
         } catch (error) {
-            console.error('Error al obtener niveles', error);
+            console.error('Error al obtener niveles:', error);
         } finally {
             setCargando(false);
         }
     };
 
-    const renderNiveles = () => {
-        return Object.entries(niveles).map(([nivel, nodos], index) => (
-            <div key={index} className="nivel-container">
-                <h3>Nivel {nivel}</h3>
-                <div className="nodo-container">
-                    {nodos.map((nodo, i) => (
-                        <div key={i} className="nodo">
-                            {' | |  '+nodo.join(' | |  ')+' | |  '}
-                        </div>
-                    ))}
-                </div>
-            </div>
-        ));
-    };
+    if (cargando) {
+        return <LoadingScreen />;
+    }
 
     return (
-        <div>
-            {cargando && <LoadingScreen />}
-            {!cargando && renderNiveles()}
+        <div className="menu-tree-container">
+            {Object.entries(niveles).map(([nivel, nodos], index) => (
+                <div key={index} className="nivel-container">
+                    <h3>Nivel {nivel}</h3>
+                    <div className="nodo-container">
+                        {nodos.map((nodo, i) => (
+                            <div key={i} className="nodo">
+                                {nodo.map((clave, j) => (
+                                    <div key={j} className="clave">
+                                        {clave}
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
         </div>
     );
 };
 
-export default MenuTree; 
+export default MenuTree;
+
 /*
 1	Configuración General	null
 1.1	Fecha y Hora	1
